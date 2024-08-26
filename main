@@ -1,0 +1,38 @@
+#include <TFT.h>
+#include <SPI.h>
+# include <DHT1.h>
+
+#define cs 10
+#define dc 9
+#define rst 8
+
+#define DHT11_PIN 2
+
+DHT1 DHT;
+
+TFT TFTscreen = TFT( cs,dc,rst);
+
+void setup() {
+  Serial.begin(9600);
+  delay(500);
+  TFTscreen.begin();
+  Serial.println("Initializing...");
+  Serial.println("Initializing...");
+  TFTscreen.background(0, 0, 0);  // Set background to black
+  TFTscreen.stroke(255, 255, 255); // Set text color to white
+  TFTscreen.setTextSize(2);        // Set text size
+  delay(1000);
+}
+
+void loop() {
+  double temp= DHT.readTemperature;
+TFTscreen.text("Temperature:"+ temp , 30,60);
+
+double hum= DHT.readAHumidity;
+TFTscreen.text("humidity:"+ hum , 30,130);
+
+delay(1000);
+
+TFTscreen.background(0, 0, 0);  // clear background for next set of data
+
+}
